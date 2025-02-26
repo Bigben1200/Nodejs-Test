@@ -81,7 +81,7 @@ export const updateTask = async (req, res) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // ✅ Validate status before updating
+    // Validate status before updating
     if (status && !["pending", "in-progress", "completed"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
