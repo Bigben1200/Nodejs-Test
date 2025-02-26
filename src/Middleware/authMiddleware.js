@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../Models/userModel";
+import { User } from "../Models/userModel.js";
 
 export const authenticateUser = async (req, res, next) => {
   let token = req.headers.authorization;
@@ -18,9 +18,9 @@ export const authenticateUser = async (req, res, next) => {
 
       next();
     } catch (error) {
-      return res.status(401).json({ message: "Invalid token" });
+      return res.status(403).json({ message: "Invalid token" });
     }
   } else {
-    return res.status(401).json({ message: "No token provided" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };

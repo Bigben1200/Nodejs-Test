@@ -2,16 +2,21 @@ import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     title: {
       type: String,
-      required: true,
+      required: [true, "Title is required"],
     },
     description: {
       type: String,
     },
     status: {
       type: String,
-      enum: ["pendind", "in-progress", "completed"],
+      enum: ["pending", "in-progress", "completed"],
       default: "pending",
     },
   },
