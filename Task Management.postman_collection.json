@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "180bb980-df84-4ace-bd36-58a100ef4b1b",
+		"name": "Task Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27252955"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Eniola\",\n    \"email\": \"ennybest@gmail.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmY2NjNhOGViODczOWM3MTljMzhlMCIsImlhdCI6MTc0MDU5Njc5NCwiZXhwIjoxNzQxMjAxNTk0fQ.qwfTbfwQgYCNiLKYRZ2ajrma5jPipeRhBkTnl7TgSyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//This creates a new task\n{\n    \"title\": \"Building a testing API\",\n    \"description\": \"Building it regardless1\",\n    \"status\": \"in-progress\"\n}\n//Success Response\n// {\n//     \"message\": \"Task created successfully\",\n//     \"task\": {\n//         \"user\": \"67bf663a8eb8739c719c38e0\",\n//         \"title\": \"Building a testing API\",\n//         \"description\": \"Building it regardless1\",\n//         \"status\": \"in-progress\",\n//         \"_id\": \"67bf9bbb7d96d0cb0d4bd94f\",\n//         \"createdAt\": \"2025-02-26T22:54:51.758Z\",\n//         \"updatedAt\": \"2025-02-26T22:54:51.758Z\",\n//         \"__v\": 0\n//     }\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All task",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmY2NjNhOGViODczOWM3MTljMzhlMCIsImlhdCI6MTc0MDU5Njc5NCwiZXhwIjoxNzQxMjAxNTk0fQ.qwfTbfwQgYCNiLKYRZ2ajrma5jPipeRhBkTnl7TgSyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//This Get ALL task\n//Success Response\n// {\n//     \"message\": \"All tasks retrieved successfully\",\n//     \"tasks\": [\n//         {\n//             \"_id\": \"67bf6d639c2f1ae5a1a06a31\",\n//             \"user\": \"67bf663a8eb8739c719c38e0\",\n//             \"title\": \"Building a testing API\",\n//             \"description\": \"Building it regardless1\",\n//             \"status\": \"pending\",\n//             \"createdAt\": \"2025-02-26T19:37:07.138Z\",\n//             \"updatedAt\": \"2025-02-26T19:37:07.138Z\",\n//             \"__v\": 0\n//         }\n//     ]\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Task",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmY2NjNhOGViODczOWM3MTljMzhlMCIsImlhdCI6MTc0MDU5Njc5NCwiZXhwIjoxNzQxMjAxNTk0fQ.qwfTbfwQgYCNiLKYRZ2ajrma5jPipeRhBkTnl7TgSyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//This endpoint gets one task",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/tasks/67bf6737d6ca58e257696632",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"tasks",
+						"67bf6737d6ca58e257696632"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update A Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmY2NjNhOGViODczOWM3MTljMzhlMCIsImlhdCI6MTc0MDU5Njc5NCwiZXhwIjoxNzQxMjAxNTk0fQ.qwfTbfwQgYCNiLKYRZ2ajrma5jPipeRhBkTnl7TgSyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//This endpoint is use to update a task\n{\n    \"title\": \"Building a testing API\",\n    \"description\": \"Building it regardless123\",\n    \"status\": \"in-progress\"\n}\n//SuccessResponse\n// {\n//     \"message\": \"Task updated successfully\",\n//     \"task\": {\n//         \"_id\": \"67bf9bbb7d96d0cb0d4bd94f\",\n//         \"user\": \"67bf663a8eb8739c719c38e0\",\n//         \"title\": \"Building a testing API\",\n//         \"description\": \"Building it regardless123\",\n//         \"status\": \"in-progress\",\n//         \"createdAt\": \"2025-02-26T22:54:51.758Z\",\n//         \"updatedAt\": \"2025-02-26T22:58:55.157Z\",\n//         \"__v\": 0\n//     }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/tasks/67bf9bbb7d96d0cb0d4bd94f",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"tasks",
+						"67bf9bbb7d96d0cb0d4bd94f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//And this endpoint is used to delete a task",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/tasks/67bf6737d6ca58e257696632",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"tasks",
+						"67bf6737d6ca58e257696632"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -19,7 +19,7 @@ app.use(logger);
 app.use("/users", userRoute);
 app.use("/tasks", taskRoute);
 
-// const PORT = process.env.PORT || 5001;
-// app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
 
 export default app;

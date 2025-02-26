@@ -51,6 +51,20 @@ describe("Task API", () => {
     expect(res.body.message).toBe("Title is required");
   });
 
+  test("Should return 400 when status is invalid", async () => {
+    const res = await request(app)
+      .post("/tasks")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        title: "Test Task",
+        description: "Invalid status",
+        status: "not-a-valid-status",
+      });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Invalid status value");
+  });
+
   /** ✅ Test Unauthorized Requests */
   test("Should return 401 when no token is provided", async () => {
     const res = await request(app).get("/tasks");
@@ -105,6 +119,7 @@ describe("Task API", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Invalid task ID");
   });
 
   /** ✅ Test Task Update */
@@ -117,6 +132,16 @@ describe("Task API", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("task");
     expect(res.body.task.status).toBe("in-progress");
+  });
+
+  test("Should return 400 when updating with an invalid status", async () => {
+    const res = await request(app)
+      .patch(`/tasks/${taskId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ status: "not-valid-status" });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Invalid status value");
   });
 
   test("Should return 404 when updating a non-existent task", async () => {
@@ -148,8 +173,17 @@ describe("Task API", () => {
     expect(res.body.message).toBe("Task not found");
   });
 
+  test("Should return 400 for invalid task ID on delete", async () => {
+    const res = await request(app)
+      .delete("/tasks/invalidID")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Invalid task ID");
+  });
+
   /** ✅ Simulate Database Error */
-  test("Should return 500 when database fails", async () => {
+  test("Should return 500 when database fails (GET tasks)", async () => {
     jest.spyOn(Task, "find").mockImplementation(() => {
       throw new Error("Database error");
     });
@@ -157,6 +191,26 @@ describe("Task API", () => {
     const res = await request(app)
       .get("/tasks")
       .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body.message).toBe("Internal Server Error");
+
+    jest.restoreAllMocks();
+  });
+
+  test("Should return 500 when database fails (POST task)", async () => {
+    jest.spyOn(Task, "create").mockImplementation(() => {
+      throw new Error("Database error");
+    });
+
+    const res = await request(app)
+      .post("/tasks")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        title: "Test Task",
+        description: "Database error simulation",
+        status: "pending",
+      });
 
     expect(res.statusCode).toBe(500);
     expect(res.body.message).toBe("Internal Server Error");

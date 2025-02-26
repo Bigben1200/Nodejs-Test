@@ -9,7 +9,7 @@ export const createTask = async (req, res) => {
       return res.status(400).json({ message: "Title is required" });
     }
 
-    if (status && !["pending", "in-progress", "done"].includes(status)) {
+    if (status && !["pending", "in-progress", "completed"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
 
@@ -79,6 +79,11 @@ export const updateTask = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
+    }
+
+    // ✅ Validate status before updating
+    if (status && !["pending", "in-progress", "completed"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
     }
 
     task.title = title || task.title;
